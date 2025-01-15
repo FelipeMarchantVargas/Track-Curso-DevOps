@@ -159,6 +159,18 @@ docker pull nginx
 docker rmi <id_imagen>
 ```
 
+- Mapeo de puertos:
+
+```
+docker run -p <puerto>:<puerto>
+```
+
+- Carpetas dinámicas:
+
+```
+docker run -v <carpeta local>:<carpeta virtual>
+```
+
 ### Volúmenes
 
 - Crear un volumen:
