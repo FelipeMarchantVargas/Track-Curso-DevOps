@@ -79,10 +79,10 @@ sudo apt install docker-ce docker-ce-cli containerd.io
 docker --version
 ```
 
-7. (Opcional) Para ejecutar Docker sin sudo, agrega tu usuario al grupo docker:
+7. (Opcional) Para ejecutar Docker sin sudo:
 
 ```
-sudo usermod -aG docker $USER
+sudo chmod 666 /var/run/docker.sock
 ```
 
 Reinicia la sesión para aplicar los cambios.
@@ -216,3 +216,25 @@ docker network connect <nombre_red> <id_contenedor>
 ```
 docker network disconnect <nombre_red> <id_contenedor>
 ```
+
+## Crear imágenes
+
+Para crear una imagen, se puede hacer con un Dockerfile, el cual puede llevar la siguiente estructura:
+
+```
+FROM ubuntu
+RUN apt-get update
+RUN apt-get install -y python3 python3-pip python3-flask
+COPY app.py /opt/app.py
+ENTRYPOINT FLASK_APP=/opt/app.py flask run --host=0.0.0.0
+```
+
+_Esto se basa en el [siguiente repositorio](https://github.com/CursoJenkins0/app-flask)_
+
+Luego, solo basta con usar el comando:
+
+```
+docker build . -t <nombre imagen>
+```
+
+y la imagen estará lista para correr con docker run!!
