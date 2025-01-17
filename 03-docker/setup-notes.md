@@ -238,3 +238,80 @@ docker build . -t <nombre imagen>
 ```
 
 y la imagen estará lista para correr con docker run!!
+
+## Docker Compose
+
+### ¿Qué es Docker Compose?
+
+Docker Compose es una herramienta que permite definir y administrar aplicaciones multicontenedor. Utiliza un archivo `docker-compose.yml` para configurar todos los servicios necesarios, lo que facilita el desarrollo y la orquestación local.
+
+### Comandos básicos de Docker Compose
+
+- **Levantar servicios**:
+
+```
+docker-compose up
+```
+
+Este comando levanta todos los servicios definidos en el archivo docker-compose.yml.
+
+- Levantar servicios con reconstrucción:
+
+```
+docker-compose up --build
+```
+
+Reconstruye las imágenes antes de iniciar los servicios.
+
+- Detener servicios:
+
+```
+docker-compose down
+```
+
+Detiene y elimina los servicios, redes y volúmenes creados.
+
+- Ver servicios en ejecución:
+
+```
+docker-compose ps
+```
+
+- Ver logs de servicios:
+
+```
+docker-compose logs
+```
+
+- Ejecutar comandos dentro de un servicio:
+
+```
+docker-compose exec <nombre_servicio> <comando>
+```
+
+### Variables de entorno
+
+Docker Compose permite usar archivos .env para parametrizar valores como puertos, nombres de contenedores, redes, etc. Un archivo .env podría verse así:
+
+```
+APP_PORT=5000
+DB_PORT=5432
+DB_NAME=mi_base_datos
+```
+
+En el archivo docker-compose.yml, puedes referenciar estas variables así:
+
+```
+services:
+  web:
+    build:
+      context: .
+    ports:
+      - "${APP_PORT}:5000"
+  db:
+    image: postgres
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "${DB_PORT}:5432"
+```
