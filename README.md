@@ -12,7 +12,7 @@ Este repositorio documenta mi progreso en el curso **DevOps TOTAL: Docker, Kuber
 
 - [x] Introducción
 - [x] Vagrant y Máquinas Virtuales
-- [ ] Docker
+- [x] Docker
 - [ ] Kubernetes
 - [ ] Jenkins
 - [ ] AWS
