@@ -159,19 +159,9 @@ docker pull nginx
 docker rmi <id_imagen>
 ```
 
-- Mapeo de puertos:
+### Volúmenes (Almacenamiento)
 
-```
-docker run -p <puerto>:<puerto>
-```
-
-- Carpetas dinámicas:
-
-```
-docker run -v <carpeta local>:<carpeta virtual>
-```
-
-### Volúmenes
+Los volúmenes en Docker se usan para persistir datos, compartiendo almacenamiento entre el host y los contenedores.
 
 - Crear un volumen:
 
@@ -191,7 +181,15 @@ docker volume ls
 docker volume rm <nombre_volumen>
 ```
 
+- Usar un volumen al ejecutar un contenedor:
+
+```
+docker run -v <volumen>:<ruta_contenedor> <imagen>
+```
+
 ### Redes
+
+Docker proporciona redes predefinidas y permite crear redes personalizadas para conectar contenedores entre sí.
 
 - Listar redes:
 
@@ -314,4 +312,41 @@ services:
       POSTGRES_DB: ${DB_NAME}
     ports:
       - "${DB_PORT}:5432"
+```
+
+## Orquestación con Swarm
+
+Docker Swarm permite convertir múltiples hosts Docker en un clúster.
+
+1. Inicializar Swarm:
+
+```
+docker swarm init
+```
+
+2. Añadir un nodo al clúster:
+   En el nodo que deseas unir, ejecuta el comando que aparece tras swarm init.
+
+3. Desplegar servicios en el clúster:
+
+```
+docker service create --name <nombre_servicio> --replicas <número> <imagen>
+```
+
+4. Listar servicios:
+
+```
+docker service ls
+```
+
+5. Escalar servicios:
+
+```
+docker service scale <nombre_servicio>=<número_replicas>
+```
+
+6. Eliminar el clúster:
+
+```
+docker swarm leave --force
 ```
